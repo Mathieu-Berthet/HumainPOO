@@ -7,7 +7,9 @@ class HUMAIN
 
     public $tail = 175;
     public $name = "";
+    public $force = 1;
 
+    public static $population = 0;
 
     public function getSecret()
     {
@@ -22,18 +24,20 @@ class HUMAIN
     public function __construct($familyName)
     {
         $this->name = $familyName;
+        self::$population += 1;
         echo "Je suis né.e \n";
     }
 
     public function __destruct()
     {
+        self::$population -= 1;
         echo "Je suis mort.e \n";
     }
 
 
     function walk()
     {
-        echo "Je marche";
+        echo "Je marche\n";
     }
 
     function mySize()
@@ -44,28 +48,47 @@ class HUMAIN
 
 class Homme extends HUMAIN
 {
-
+    public $force = 2;
 }
 
 class Femme extends HUMAIN
 {
-
+    public function faireEnfant()
+    {
+        echo "Oui, je peux enfanter\n";
+    }
 }
 
+echo "Population : ".HUMAIN::$population."\n";
+$marcelline = new Femme("chat");
+echo "Population : ".HUMAIN::$population."\n";
+$constance = new Femme("chien");
+echo "Population : ".HUMAIN::$population."\n";
 
-$marcelline = new HUMAIN("chat");
-$constance = new HUMAIN("chien");
+$adam = new Homme("Renard");
+echo "Population : ".HUMAIN::$population."\n";
 
-echo $marcelline->mySize()."\n";
-echo $constance->mySize()."\n";
+$adam->walk();
 
-echo $marcelline->name."\n";
-echo $constance->name."\n";
+echo "Marcelline mesure : ".$marcelline->mySize()."cm \n";
+echo "Constance mesure : ".$constance->mySize()."cm \n";
+
+echo "Le nom de Marcelline est : ".$marcelline->name."\n";
+echo "Le nom de constance est : ".$constance->name."\n";
 
 $marcelline->setSecret("J'aime les chats \n");
 $constance->setSecret("J'aime les chiens \n");
 
-echo $marcelline->getSecret();
-echo $constance->getSecret();
+echo "Le secret de Marcelline est : ".$marcelline->getSecret();
+echo "Me secret de Constance est : ".$constance->getSecret();
 
+echo "La force de Marcelline est : ".$marcelline->force."\n";
+echo "La force de Adam est : ".$adam->force."\n";
+
+
+$marcelline->faireEnfant();
+//$adam->faireEnfant();
+echo "Population : ".HUMAIN::$population."\n";
 unset($constance);
+echo "Population : ".HUMAIN::$population."\n";
+
