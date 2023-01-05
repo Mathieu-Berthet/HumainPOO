@@ -1,8 +1,21 @@
 <?php
 
 
-class HUMAIN
+trait Bipede {
+    public function courrir()
+    {
+        echo "Je cours\n";
+    }
+}
+
+interface Mammifere
 {
+    public function Pilosite();
+}
+
+abstract class HUMAIN implements Mammifere
+{
+    use Bipede;
     private $secret = "";
 
     public $tail = 175;
@@ -35,14 +48,19 @@ class HUMAIN
     }
 
 
-    function walk()
+    public function walk()
     {
         echo "Je marche\n";
     }
 
-    function mySize()
+    public function mySize()
     {
         return $this->tail + 1;
+    }
+
+    public function Pilosite()
+    {
+        echo "J'ai du poil\n";
     }
 }
 
@@ -57,6 +75,12 @@ class Femme extends HUMAIN
     {
         echo "Oui, je peux enfanter\n";
     }
+
+
+    public function Pilosite()
+    {
+        echo "J'ai moins de poil que homme\n";
+    }
 }
 
 echo "Population : ".HUMAIN::$population."\n";
@@ -69,6 +93,8 @@ $adam = new Homme("Renard");
 echo "Population : ".HUMAIN::$population."\n";
 
 $adam->walk();
+$marcelline->courrir();
+
 
 echo "Marcelline mesure : ".$marcelline->mySize()."cm \n";
 echo "Constance mesure : ".$constance->mySize()."cm \n";
@@ -85,6 +111,8 @@ echo "Me secret de Constance est : ".$constance->getSecret();
 echo "La force de Marcelline est : ".$marcelline->force."\n";
 echo "La force de Adam est : ".$adam->force."\n";
 
+$adam->Pilosite();
+$marcelline->Pilosite();
 
 $marcelline->faireEnfant();
 //$adam->faireEnfant();
